@@ -200,6 +200,14 @@ def extract_features(url):
         # HTML FEATURES
         # ==============================
 
+        # Track whether the live fetch actually succeeded. If it didn't,
+        # every content-based feature below defaults to "empty", which the
+        # model can misread as a clean/minimal legitimate page rather than
+        # what it actually is: no data at all. Downstream code (predictor.py)
+        # uses this flag to avoid trusting a false "Legitimate" verdict.
+
+        fetch_failed = False
+        response = None
 
         try:
 
@@ -214,10 +222,17 @@ def extract_features(url):
 
             html = response.text
 
+            if not html or not html.strip():
+                fetch_failed = True
+
 
         except:
 
             html = ""
+            fetch_failed = True
+
+
+        features["FetchFailed"] = 1 if fetch_failed else 0
 
 
         soup = BeautifulSoup(
@@ -310,7 +325,7 @@ def extract_features(url):
             len(
                 response.history
             )
-            if 'response' in locals()
+            if response is not None
             else 0
         )
 
