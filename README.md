@@ -191,13 +191,13 @@ The trained model is deployed as an interactive Streamlit application where user
 
 ## 🔮 Prediction — Legitimate URL
 
-![Prediction 1](assets/images/prediction1.png)
+![Prediction 1](assets/images/prediction2.png)
 
 ---
 
 ## 🔮 Prediction — Phishing URL
 
-![Prediction 2](assets/images/prediction2.png)
+![Prediction 2](assets/images/prediction1.png)
 
 ---
 
